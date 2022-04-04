@@ -1,0 +1,138 @@
+﻿@model NBD_TractionFive.Models.Bid
+
+@{
+    ViewData["Title"] = "Details";
+    NBD_TractionFive.Models.Bid bid = (NBD_TractionFive.Models.Bid)ViewBag.Bid;
+}
+
+<h1>Details</h1>
+
+<div style="width:150%">
+    <h4>Bid</h4>
+    <hr />
+    <h5>Project Info</h5>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Project)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Project.projSite)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Project.Client.cliName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Project.Client.cliName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Project.Client.cliContactName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Project.Client.cliContactName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.bidDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.bidDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.bidAmount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.bidAmount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BidState)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BidState)
+        </dd>
+        <dt class="col-sm-2">
+            Sales Associate
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SalesAssociate.empFullName)
+        </dd>
+        <dt class="col-sm-2">
+            Designer
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Designer.empFullName)
+        </dd>
+    </dl>
+    <hr />
+    <h5>Labour Needed</h5>
+    @foreach (var x in Model.BidLabours)
+    {
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => x.Labour.labDescription)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => x.Labour.labDescription)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => x.Labour.labPrice)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => x.Labour.labPrice)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => x.blHours)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => x.blHours)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => x.blCost)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => x.blCost)
+            </dd>
+        </dl>
+
+    }
+    <hr />
+    <h5>Materials Needed</h5>
+    @foreach (var x in Model.BidMaterials)
+    {
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => x.Inventory.invName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => x.Inventory.invName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => x.Inventory.invSize)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => x.Inventory.invSize)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => x.Inventory.invPrice)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => x.Inventory.invPrice)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => x.bmQuantity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => x.bmQuantity)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => x.bmCost)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => x.bmCost)
+            </dd>
+        </dl>
+    }
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.bidID">Edit</a> |
+    <a asp-action="Index">All Bids List</a> |
+    <a asp-controller="Home" asp-action="Index">Home</a>
+</div>

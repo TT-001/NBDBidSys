@@ -1,0 +1,91 @@
+﻿@model NBD_TractionFive.Models.Client
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input asp-for="cliID" hidden />
+    <input type="hidden" asp-for="RowVersion" />
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Edit Client</h2>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="cliName" class="control-label"></label>
+                    <input asp-for="cliName" class="form-control form-control-lg" style="width:500px" />
+                    <span asp-validation-for="cliName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="Street" class="control-label"></label>
+                    <input asp-for="Street" class="form-control form-control-lg" style="width:500px" />
+                    <span asp-validation-for="Street" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="cliCity" class="control-label"></label>
+                    <input asp-for="cliCity" class="form-control form-control-lg" style="width:500px" />
+                    <span asp-validation-for="cliCity" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="Province" class="control-label"></label>
+                    <select asp-for="Province" class="form-control form-control-lg" style="width:500px" asp-items="Html.GetEnumSelectList<Province>()">
+                    </select>
+                    <span asp-validation-for="Province" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="ZipCode" class="control-label"></label>
+                    <input asp-for="ZipCode" class="form-control form-control-lg" style="width:500px" />
+                    <span asp-validation-for="ZipCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="cliContactName" class="control-label"></label>
+                    <input asp-for="cliContactName" class="form-control form-control-lg" style="width:500px" />
+                    <span asp-validation-for="cliContactName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="clicontactType" class="control-label"></label>
+                    <input asp-for="clicontactType" class="form-control form-control-lg" style="width:500px" />
+                    <span asp-validation-for="clicontactType" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="cliPhonenumber" class="control-label"></label>
+                    <input asp-for="cliPhonenumber" class="form-control form-control-lg" style="width:500px" />
+                    <span asp-validation-for="cliPhonenumber" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="mx-4">
+                <input type="submit" class="btn btn-warning" value="Update" />
+            </div>
+            <div class="mx-4">
+                <a asp-action="Index" class="btn btn-dark">
+                    Cancel
+                </a>
+            </div>
+        </div>
+    </div>
+</form>

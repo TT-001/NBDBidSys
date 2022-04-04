@@ -1,0 +1,134 @@
+﻿@*@{
+        ViewData["Title"] = "Home Page";
+    }*@
+
+
+
+
+@*<div class="jumbotron">
+        <h1 class="display-4">Natural by Design</h1>
+        <p class="lead">Welcome to the Natural by Design page</p>
+        <hr class="my-4">
+    </div>*@
+
+@model IEnumerable<NBD_TractionFive.Models.Bid>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Project Sales
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            <span>&#36;</span>@Model.Sum(a => a.bidAmount)
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-designer shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Number of Projects
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            @Model.Count()
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-controller="inventoryVMs" asp-action="Index" class="btn btn-primary btn-icon-split">
+            <span class="icon text-white-50">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box" viewBox="0 0 16 16">
+                    <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z" />
+                </svg>
+            </span>
+            <span class="text">Inventory</span>
+        </a>
+    </div>
+</div>
+
+
+
+
+<h1>
+    My Projects - @ViewData["name"]
+</h1>
+
+
+<nav></nav>
+
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    @*<div class="card shadow mb-4">
+        <div class="card-body">*@
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="border border-light table-light">
+                        @Html.DisplayNameFor(model => model.Project.projSite)
+                    </th>
+                    <th class="border border-light table-light">
+                        @Html.DisplayNameFor(model => model.Project.Client.cliName)
+                    </th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="border border-light table-light">
+                            @Html.DisplayFor(modelItem => item.Project.ProjSiteComplete)
+                        </td>
+                        <td class="border border-light table-light">
+                            @Html.DisplayFor(modelItem => item.Project.Client.cliName)
+                        </td>
+
+                        <td class="border border-light table-light">
+                            @*<a asp-controller="Project" asp-action="Details" asp-route-id="@item.projID">Details</a>*@
+                            <a asp-controller="Project" asp-action="Details" class="btn btn-primary btn-sm active" asp-route-id="@item.projID" role="button" aria-pressed="true">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @*</div>
+        </div>*@
+</div>
+
+
+@section styles{
+    <link rel="Stylesheet" href="@Href("~/css/page.css")" />
+}
+
+
+
+
+

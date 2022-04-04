@@ -1,0 +1,115 @@
+﻿@model NBD_TractionFive.Models.Project
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<form method="post" asp-action="Create">
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Create Project</h2>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="Client" class="control-label"></label>
+                    <select asp-for="cliID" class="form-control form-control-lg" style="width:300px" asp-items="ViewBag.ProjectID">
+                        <option value="">Select a Client</option>
+                    </select>
+                    <span asp-validation-for="projID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="projBeginDate" class="control-label"></label>
+                    <input asp-for="projBeginDate" class="form-control form-control-lg" style="width:300px" />
+                    <span asp-validation-for="projBeginDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="projCompletionDate" class="control-label"></label>
+                    <input asp-for="projCompletionDate" class="form-control form-control-lg" style="width:300px" />
+                    <span asp-validation-for="projCompletionDate" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="projSite" class="control-label"></label>
+                    <input asp-for="projSite" class="form-control form-control-lg" style="width:300px" />
+                    <span asp-validation-for="projSite" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="projCity" class="control-label"></label>
+                    <input asp-for="projCity" class="form-control form-control-lg" style="width:300px" />
+                    <span asp-validation-for="projCity" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="Province" class="control-label"></label>
+                    <select asp-for="Province" class="form-control form-control-lg" style="width:300px" asp-items="Html.GetEnumSelectList<Province>()">
+                        <option selected="selected" value="">Please select</option>
+                    </select>
+                    <span asp-validation-for="Province" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col mb-4">
+            <div class="row">
+                <div class="form-outline">
+                    <label asp-for="ZipCode" class="control-label"></label>
+                    <input asp-for="ZipCode" class="form-control form-control-lg" style="width:200px" />
+                    <span asp-validation-for="ZipCode" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="mx-4" style="margin: 10px">
+                <input type="submit" name="creating" class=" w-30 btn btn-warning" value="Create" />
+            </div>
+            @if (User.IsInRole("Designer") || User.IsInRole("Management"))
+            {
+                <div class="mx-4" style="margin: 10px">
+                    <input type="submit" name="creating" class="w-30 btn btn-warning" value="Create and Add Bid" />
+                </div>
+            }
+            <div class="mx-4" style="margin: 10px">
+                <a asp-action="Index" class="btn btn-dark ">
+                    Cancel
+                </a>
+            </div>
+        </div>
+        <div style="margin-left: 400px; margin-top : 60px">
+            <input type="button" name="creating" value="Demo" onclick="Demo()" />
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        function Demo() {
+            
+            
+            $("#projSite").val("The Tombstone");
+            $("#projCity").val("Bali");
+            $("#Province").val(1);
+            $("#ZipCode").val("L2J 3O9");
+            $("#cliID").val(1);
+            
+        };
+
+    </script>
+}
+
+

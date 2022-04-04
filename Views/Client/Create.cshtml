@@ -1,0 +1,123 @@
+﻿@model NBD_TractionFive.Models.Client
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form method="post" asp-action="Create">
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Add Client</h2>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="cliName" class="control-label"></label>
+                    <input  asp-for="cliName" class="form-control form-control-lg" placeholder="e.g Jane Smith" />
+                    <span asp-validation-for="cliName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="Street" class="control-label"></label>
+                    <input  asp-for="Street" class="form-control form-control-lg" placeholder="e.g 413 Cherry Lane" />
+                    <span asp-validation-for="Street" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="cliCity" class="control-label"></label>
+                    <input  asp-for="cliCity" class="form-control form-control-lg" placeholder="e.g Niagara Falls" />
+                    <span asp-validation-for="cliCity" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="Province" class="control-label"></label>
+                    <select  asp-for="Province" class="form-control form-control-lg" asp-items="Html.GetEnumSelectList<Province>()">
+                        <option selected="selected" value="">Please select</option>
+                    </select>
+                    <span asp-validation-for="Province" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="ZipCode" class="control-label"></label>
+                    <input  asp-for="ZipCode" class="form-control form-control-lg" placeholder="e.g L2G 3G9" />
+                    <span asp-validation-for="ZipCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="cliContactName" class="control-label"></label>
+                    <input  asp-for="cliContactName" class="form-control form-control-lg" placeholder="e.g Simmy Kent" />
+                    <span asp-validation-for="cliContactName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="clicontactType" class="control-label"></label>
+                    <input  asp-for="clicontactType" class="form-control form-control-lg" placeholder="e.g HR" />
+                    <span asp-validation-for="clicontactType" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="cliPhonenumber" class="control-label"></label>
+                    <input  asp-for="cliPhonenumber" class="form-control form-control-lg" placeholder="e.g. 1234580085" />
+                    <span asp-validation-for="cliPhonenumber" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="mx-4" style="margin: 10px">
+                <input type="submit" name="creating" class="w-30 btn btn-warning btn-m" value="Create" />
+            </div>
+
+            <div class="mx-4" style="margin: 10px">
+                <input type="submit" name="creating" class="w-30 btn btn-warning btn-m" value="Create and Add Project" />
+            </div>
+
+
+            <div class="mx-4" style="margin: 10px">
+                <a asp-action="Index" class="w-30 btn btn-dark btn-m">
+                    Cancel
+                </a>
+            </div>
+
+            <div style="margin-left: 400px; margin-top : 60px"   >
+                <input type="button" name="creating"  value="Demo" onclick="Demo()" />
+            </div>
+
+        </div>
+    </div>
+
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script type="text/javascript">
+        function Demo() {
+            $("#cliName").val("Phil NewHouse");
+            $("#cliCity").val("Short Island");
+            $("#Street").val("485 Whatever Street");
+            $("#Province").val(7);
+            $("#ZipCode").val("L2P 3T6 ");
+            $("#cliContactName").val("Ja Crisp Legacy");
+            $("#clicontactType").val("HR");
+            $("#cliPhonenumber").val(9056524587);
+        };
+
+</script>
+}
+

@@ -1,0 +1,74 @@
+﻿@model NBD_TractionFive.Models.Client
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.cliName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.cliName)
+        </dd>
+        @*<dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.address)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.address)
+            </dd>*@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.cliContactName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.cliContactName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.cliPhonenumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.cliPhonenumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Projects)
+        </dt>
+        <dd class="col-sm-10">
+            @{
+                int projCount = Model.Projects.Count;
+                if (projCount > 0)
+                {
+                    string firstProj = Model.Projects.FirstOrDefault().projSite;
+                    if (projCount > 1)
+                    {
+                        string projList = firstProj;
+                        var c = Model.Projects.ToList();
+                        for (int i = 1; i < projCount; i++)
+                        {
+
+                            projList += ", " + c[i].projSite;
+
+                        }
+                        @*<a tabindex="0" class="" role="button" data-toggle="popover"
+                            data-trigger="focus" title="Conditions" data-placement="bottom" data-content="@projList">@firstProj... <span class="badge badge-info">@projCount</span></a>*@
+                        @Html.DisplayFor(model => projList)
+
+                    }
+                    else
+                    {
+                        @firstProj
+                    }
+                }
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-dark">
+        Back to list
+    </a>
+</div>

@@ -1,0 +1,84 @@
+﻿@model NBD_TractionFive.Models.Project
+
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input asp-for="projID" hidden />
+    <input type="hidden" asp-for="RowVersion" />
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Edit Project</h2>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="Client" class="control-label"></label>
+                    <select asp-for="cliID" class="form-control form-control-lg" style="width:450px" asp-items="ViewBag.ProjectID"></select>
+                    <span asp-validation-for="cliID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="projBeginDate" class="control-label"></label>
+                    <input asp-for="projBeginDate" class="form-control form-control-lg" style="width:250px" />
+                    <span asp-validation-for="projBeginDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="projCompletionDate" class="control-label"></label>
+                    <input asp-for="projCompletionDate" class="form-control form-control-lg" style="width:250px" />
+                    <span asp-validation-for="projCompletionDate" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="projSite" class="control-label"></label>
+                    <input asp-for="projSite" class="form-control form-control-lg" style="width:450px" />
+                    <span asp-validation-for="projSite" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="projCity" class="control-label"></label>
+                    <input asp-for="projCity" class="form-control form-control-lg" style="width:250px" />
+                    <span asp-validation-for="projCity" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label asp-for="Province" class="control-label"></label>
+                    <select asp-for="Province" class="form-control form-control-lg" style="width:250px" asp-items="Html.GetEnumSelectList<Province>()">
+                    </select>
+                    <span asp-validation-for="Province" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col mb-4">
+            <div class="row">
+                <div class="form-outline">
+                    <label asp-for="ZipCode" class="control-label"></label>
+                    <input asp-for="ZipCode" class="form-control form-control-lg" style="width:200px" />
+                    <span asp-validation-for="ZipCode" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="mx-4">
+                <input type="submit" class="btn btn-warning" value="Save Changes" />
+            </div>
+            <div class="mx-4">
+                <a asp-action="Index" class="btn btn-dark">
+                    Cancel
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+

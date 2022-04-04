@@ -1,0 +1,193 @@
+﻿@model NBD_TractionFive.Models.Bid
+
+@{
+    ViewData["Title"] = "Edit";
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="bidID" />
+        <input type="hidden" asp-for="RowVersion" />
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Edit Bid</h2>
+        </div>
+
+        <div class="form-row m-4">
+            <div class="col-md-6 mb-3">
+                <label asp-for="projID" class="control-label">Project Site</label>
+                <select asp-for="projID" class="form-control form-control-lg" asp-items="ViewBag.projID"></select>
+                <span asp-validation-for="projID" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="SalesID" class="control-label">Sales Associate</label>
+                @if (User.IsInRole("Designer"))
+                {
+                    <input asp-for="SalesAssociate.empFullName" class="form-control form-control-lg" asp-items="ViewBag.salesID" readonly />
+                }
+                else
+                {
+                    <select asp-for="SalesID" class="form-control form-control-lg" asp-items="ViewBag.salesID"></select>
+                }
+                <span asp-validation-for="SalesID" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="DesignerID" class="control-label">Designer</label>
+                @if (User.IsInRole("Designer"))
+                {
+                    <input asp-for="Designer.empFullName" class="form-control form-control-lg" asp-items="ViewBag.designerID" readonly />
+                }
+                else
+                {
+                    <select asp-for="DesignerID" class="form-control form-control-lg" asp-items="ViewBag.designerID"></select>
+                }
+                <span asp-validation-for="DesignerID" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row m-4">
+            <div class="col-md-2 mb-3">
+                <label asp-for="bidDate" class="control-label"></label>
+                @if (User.IsInRole("Designer"))
+                {
+                    <input asp-for="bidDate" class="form-control form-control-lg" readonly />
+                }
+                else
+                {
+                    <input asp-for="bidDate" class="form-control form-control-lg" />
+                }
+
+                <span asp-validation-for="bidDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-2 mb-3">
+                <label asp-for="bidAmount" class="control-label "></label>
+                @if (User.IsInRole("Designer"))
+                {
+                    <input asp-for="bidAmount" class="form-control form-control-lg" readonly />
+                }
+                else
+                {
+                    <input asp-for="bidAmount" class="form-control form-control-lg" readonly />
+                }
+
+                <span asp-validation-for="bidAmount" class="text-danger"></span>
+            </div>
+            <div class="col-md-2 mb-3">
+                <label asp-for="BidState" class="control-label">Bid State</label>
+                @if (User.IsInRole("Designer"))
+                {
+                    @if (Model.BidState != BidState.Designing && Model.BidState != BidState.Waiting_Management && Model.BidState != BidState.bsRevision)
+                    {
+                        <select asp-for="BidState" class="form-control form-control-lg" asp-items="Html.GetEnumSelectList<BidState>()" disabled></select>
+                    }
+                    else
+                    {
+                        //<input asp-for="BidState.status" class="form-control form-control-lg" asp-items="ViewBag.bidStateID" readonly />
+                        <select asp-for="BidState" class="form-control form-control-lg">
+                            <option>@BidState.Designing</option>
+                            <option>@BidState.Waiting_Management</option>
+                        </select>
+                    }
+
+                }
+                else
+                {
+                    //<select asp-for="bidStateID" class="form-control form-control-lg" asp-items="ViewBag.bidStateID"></select>
+                    <select asp-for="BidState" class="form-control form-control-lg" asp-items="Html.GetEnumSelectList<BidState>()"></select>
+                }
+
+                <span asp-validation-for="BidState" class="text-danger"></span>
+            </div>
+        </div>
+        <hr />
+
+
+        <div class="row justify-content-sm-around">
+            <div class="col-md-offset-1 ">
+                <h5>Labours Needed</h5>
+                <table>
+                    <tr>
+                        @{
+                            int labCnt = 0;
+                            List<NBD_TractionFive.ViewModels.AssignedLabourVM> labCheckboxes = ViewBag.Labours;
+                            for (int i = 0; i < labCheckboxes.Count; i++)
+                            {
+                                if (labCnt++ % 1 == 0)
+                                {
+                                @:</tr><tr>
+                                }
+                                @:<td>
+                                    <input type="hidden" name="labCheckboxes[@i].ID" value="@labCheckboxes[i].ID" />
+                                    <input type="checkbox"
+                                           asp-for="@labCheckboxes[i].assigned" />
+                                    @labCheckboxes[i].displayText @:&nbsp;&nbsp;<br />
+                                    <label>Hours Needed:</label>
+                                    <input type="number"
+                                           asp-for="@labCheckboxes[i].displayNumber" />
+                                @:</td>
+                            }
+                        @:</tr>
+                        }
+
+                    </table>
+
+                </div>
+
+                <div>
+
+                    <div class="col-md-offset-1">
+                        <h5>Materials Needed</h5>
+                        <table>
+                            <tr>
+                                @{
+                                    int invCnt = 0;
+                                    List<NBD_TractionFive.ViewModels.AssignedMaterialVM> invCheckboxes = ViewBag.Inventories;
+                                    for (int i = 0; i < invCheckboxes.Count; i++)
+                                    {
+                                        if (invCnt++ % 1 == 0)
+                                        {
+                                        @:</tr><tr>
+                                        }
+                                        @:<td>
+                                            <input type="hidden" name="invCheckboxes[@i].ID" value="@invCheckboxes[i].ID" />
+                                            <input type="checkbox"
+                                                   asp-for="@invCheckboxes[i].assigned" />
+                                            @invCheckboxes[i].displayText @:&nbsp;&nbsp;<br />
+                                            <label>Quantity Needed:</label>
+                                            <input type="number"
+                                                   asp-for="@invCheckboxes[i].displayNumber" />
+                                        @:</td>
+                                    }
+                                @:</tr>
+                                }
+
+                            </table>
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-offset-1 ">
+                        <table><tr></tr></table>
+
+                    </div>
+                </div>
+
+
+        <div class="form-group row">
+            <div class="mx-4">
+                <input type="submit" name="editing" class="btn btn-warning" value="Save Changes" />
+            </div>
+            <div class="mx-4">
+                <input type="submit" name="editing" class="btn btn-warning" value="Create New Bid from Template" />
+            </div>
+            <div class="mx-4">
+                <a asp-action="Index" class="btn btn-dark">
+                    Cancel
+                </a>
+            </div>
+        </div>
+            </form>
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }
+}

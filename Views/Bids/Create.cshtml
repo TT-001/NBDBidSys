@@ -1,0 +1,174 @@
+﻿@model NBD_TractionFive.Models.Bid
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form method="post" asp-action="Create">
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Create Bid</h2>
+        </div>
+        <div class="form-row m-4">
+            <div class="col-md-6 mb-3">
+                <label asp-for="projID" class="control-label">Project Site</label>
+                <select asp-for="projID" class="form-control form-control-lg " asp-items="ViewBag.projID"></select>
+                <span asp-validation-for="Project.projSite" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="SalesID" class="control-label">Sales Associate</label>
+                <select asp-for="SalesID" class="form-control form-control-lg " asp-items="ViewBag.salesID">
+                    <option value="">Select Sales Associate</option>
+                </select>
+                <span asp-validation-for="SalesID" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="DesignerID" class="control-label">Designer</label>
+                <select asp-for="DesignerID" class="form-control form-control-lg " asp-items="ViewBag.designerID">
+                    <option value="">Select Designer</option>
+                </select>
+                <span asp-validation-for="DesignerID" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="form-row m-4">
+            <div class="col-md-3 mb-3">
+                <label asp-for="bidDate" class="control-label"></label>
+                <input asp-for="bidDate" class="form-control form-control-lg " />
+                <span asp-validation-for="bidDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-2 mb-3">
+                <label asp-for="bidAmount" class="control-label"></label>
+                <input asp-for="bidAmount" class="form-control form-control-lg" value=0 disabled />
+                <span asp-validation-for="bidAmount" class="text-danger"></span>
+            </div>
+            <div class="col-md-5 mb-3">
+                <label asp-for="BidState" class="control-label">Bid State</label>
+                @if (User.IsInRole("Designer"))
+                {
+                    <select asp-for="BidState" class="form-control form-control-lg">
+                        <option selected="selected">@BidState.Designing</option>
+                        <option>@BidState.Waiting_Management</option>
+                    </select>
+                }
+                else
+                {
+                    <select asp-for="BidState" class="form-control form-control-lg" asp-items="@Html.GetEnumSelectList<BidState>()"></select>
+                }
+                <span asp-validation-for="BidState" class="text-danger"></span>
+            </div>
+
+
+
+
+        </div>
+        <hr />
+
+        <div class="row justify-content-around">
+            <div class="col-md-offset-1">
+                <h5>Labours Needed</h5>
+                <table>
+                    <tr>
+                        @{
+                            int labCnt = 0;
+                            List<NBD_TractionFive.ViewModels.AssignedLabourVM> labCheckboxes = ViewBag.Labours;
+                            for (int i = 0; i < labCheckboxes.Count; i++)
+                            {
+                                if (labCnt++ % 1 == 0)
+                                {
+                                @:</tr><tr>
+                                }
+                                @:<td>
+                                    <input type="hidden" name="labCheckboxes[@i].ID" value="@labCheckboxes[i].ID" />
+                                    <input type="checkbox"
+                                           asp-for="@labCheckboxes[i].assigned" />
+                                           
+                                    @labCheckboxes[i].displayText @:&nbsp;&nbsp;<br />
+                                    <label>Hours Needed:</label>
+                                    <input type="number" min="0" max="100"
+                                           style="width: 40px"
+                                           asp-for="@labCheckboxes[i].displayNumber" />
+                                @:</td>
+                            }
+                        @:</tr>
+                        }
+                    </table>
+                </div>
+
+                <div>
+
+                    <div class="col-md-offset-1">
+                        <h5>Materials Needed</h5>
+                        <table>
+                            <tr>
+                                @{
+                                    int invCnt = 0;
+                                    List<NBD_TractionFive.ViewModels.AssignedMaterialVM> invCheckboxes = ViewBag.Inventories;
+                                    for (int i = 0; i < invCheckboxes.Count; i++)
+                                    {
+                                        if (invCnt++ % 1 == 0)
+                                        {
+                                        @:</tr><tr>
+                                        }
+                                        @:<td>
+                                            <input type="hidden" name="invCheckboxes[@i].ID" value="@invCheckboxes[i].ID" />
+                                            <input type="checkbox"
+                                                   asp-for="@invCheckboxes[i].assigned" />
+                                            @invCheckboxes[i].displayText @:&nbsp;&nbsp;
+                                            <span>&#36;</span>;
+                                            @invCheckboxes[i].price;
+                                            <br />
+                                            <label>Quantity Needed:</label>
+                                            <input name="Quantity" type="number"
+                                                   min="0" max="100"
+                                                   style="width: 40px"
+                                                   asp-for="@invCheckboxes[i].displayNumber" />
+                                            @*<label name ="TotalPrice"></label>*@
+                                        @:</td>
+                                    }
+                                @:</tr>
+                                }
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-1 ">
+                        <table><tr></tr></table>
+
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <div class="mx-4" style="margin: 10px">
+                        <input type="submit" name="creating" class=" w-30 btn btn-warning" value="Create" />
+                    </div>
+                    <div class="mx-4" style="margin: 10px">
+                        <a asp-action="Index" class="btn btn-dark ">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+</form>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    @*<script type="text/javascript">
+        function UpdatePrice(singleItemPrice, qty) {
+
+            var result = singleItemPrice * qty;
+
+            $("#TotalPrice").val(result);
+        };
+        function GetQuantity() {
+            return parseFloat(document.getElementById("Quantity").value)
+        }
+
+        
+    </script>*@
+}
